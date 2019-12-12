@@ -1,0 +1,34 @@
+CREATE TABLE EMPIS(
+emp_id  VARCHAR2(6),   
+name VARCHAR (20),
+salary NUMBER(30),
+deptno NUMBER(30),   
+designation VARCHAR (30),
+PRIMARY KEY(emp_id) 
+);
+
+---------------------------------------------------------------
+
+TRIGGER CREATION
+CREATE OR REPLACE TRIGGER emp_trig  
+    AFTER INSERT ON EMPIS  
+BEGIN 
+    DBMS_OUTPUT.PUT_LINE ('New employees are added'); 
+END; 
+ 
+----------------------------------------------------------------
+
+insert into EMPIS 
+values('E01','Ashish',40000,01,'manager');
+
+-----------------------------------------------------------------
+
+2
+CREATE OR REPLACE TRIGGER sal_trig  
+    AFTER UPDATE ON EMPIS
+    FOR EACH ROW WHEN(NEW.salary>=2000)
+BEGIN 
+    DBMS_OUTPUT.PUT_LINE ('old salary' || :NEW.SALARY || 'new salary' || :NEW.SALARY);
+    
+END; 
+ 
