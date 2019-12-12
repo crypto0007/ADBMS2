@@ -1,0 +1,18 @@
+->select sys_context('USERENV','SESSION_USER') as "user name" from dual
+->select sys_context('USERENV','CURRENT_SCHEMA') as "user name" from dual
+
+->create or replace trigger update_trig
+before update on emp1
+for each row when (new.salary-old.salary > 2000)
+begin
+dbms_output.put_line(:new.salary);
+dbms_output.put_line(:old.salary);
+end;
+
+->create or replace trigger delete_trig
+after delete on emp1
+for each row
+begin
+update dept set noofemployee=noofemployee-1 where deptno=:old.deptno;
+end;
+
